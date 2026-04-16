@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4312", "-d", "/Users/briannuckols/dbt-existential-lwl"],
+      "port": 4312
+    }
+  ]
+}

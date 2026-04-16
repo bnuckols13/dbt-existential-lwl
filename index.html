@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Four Questions — Life Worth Living</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --text:       #1C1917;
+            --text-2:     #57534E;
+            --text-3:     #A8A29E;
+            --accent:     #7A5F55;
+            --accent-bg:  #F5EFEB;
+            --cool:       #506878;
+            --cool-bg:    #EDF1F4;
+            --border:     #E7E5E4;
+            --bg:         #FAFAF7;
+            --surface:    #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body::before {
+            content: '';
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--cool) 100%);
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        /* ---- Header ---- */
+        .header { margin-bottom: 2.5rem; }
+        .header-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-2);
+            font-weight: 400;
+        }
+
+        /* ---- Nav ---- */
+        .nav {
+            display: flex;
+            gap: 0.25rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav button {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 0.75rem 1rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-3);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .nav button:hover { color: var(--text-2); }
+        .nav button.active {
+            color: var(--accent);
+            font-weight: 600;
+            border-bottom-color: var(--accent);
+        }
+
+        /* ---- Pages ---- */
+        .page { display: none; }
+        .page.active { display: block; animation: appear 0.25s ease; }
+        @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
+
+        /* ---- Typography ---- */
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 0.5rem;
+        }
+        .section-label.warm { color: var(--accent); }
+        .section-label.cool { color: var(--cool); }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+        }
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .body-text {
+            font-size: 0.95rem;
+            color: var(--text-2);
+            line-height: 1.8;
+        }
+        .body-text + .body-text { margin-top: 0.75rem; }
+        .body-text strong { color: var(--text); font-weight: 600; }
+
+        .timing {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-3);
+            float: right;
+            margin-top: 0.2rem;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5rem 0;
+        }
+
+        /* ---- Callout ---- */
+        .callout {
+            border-left: 3px solid var(--border);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+        .callout.warm { border-left-color: var(--accent); background: var(--accent-bg); }
+        .callout.cool { border-left-color: var(--cool); background: var(--cool-bg); }
+        .callout .callout-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 0.4rem;
+        }
+        .callout.warm .callout-label { color: var(--accent); }
+        .callout.cool .callout-label { color: var(--cool); }
+        .callout p { font-size: 0.9rem; color: var(--text-2); line-height: 1.7; }
+        .callout p strong { color: var(--text); }
+
+        /* ---- Steps ---- */
+        .steps { margin: 1.5rem 0; }
+        .step {
+            display: flex;
+            gap: 1rem;
+            align-items: baseline;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .step:last-child { border-bottom: none; }
+        .step-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-3);
+            flex-shrink: 0;
+            width: 1.5rem;
+            text-align: right;
+        }
+        .step-content { flex: 1; }
+        .step-q { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+        .step-hint { font-size: 0.82rem; color: var(--text-3); margin-top: 0.15rem; line-height: 1.6; }
+
+        /* ---- Accordion ---- */
+        .accordion { margin: 1.5rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .acc-item { border-bottom: 1px solid var(--border); }
+        .acc-item:last-child { border-bottom: none; }
+        .acc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            background: var(--surface);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .acc-header:hover { background: var(--bg); }
+        .acc-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+        .acc-icon { font-size: 1.1rem; color: var(--text-3); transition: transform 0.2s; font-weight: 300; line-height: 1; }
+        .acc-item.open .acc-icon { transform: rotate(45deg); }
+        .acc-body { display: none; padding: 0 1.25rem 1.25rem; background: var(--surface); }
+        .acc-item.open .acc-body { display: block; }
+        .acc-body p { font-size: 0.9rem; color: var(--text-2); line-height: 1.75; }
+        .acc-body p + p { margin-top: 0.75rem; }
+        .acc-body ul { list-style: none; margin-top: 0.5rem; }
+        .acc-body ul li {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            line-height: 1.75;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .acc-body ul li::before {
+            content: '\00B7';
+            position: absolute;
+            left: 0;
+            color: var(--text-3);
+        }
+        .acc-body .aside {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--text-3);
+            padding-left: 1rem;
+            border-left: 2px solid var(--border);
+        }
+
+        /* ---- Letter blocks ---- */
+        .letter-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        .letter-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+        .letter-card:hover { border-color: var(--accent); }
+        .letter-card.active { border-color: var(--accent); }
+        .letter-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--surface);
+        }
+        .letter-char {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            width: 2rem;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .letter-card.cool-card .letter-char { color: var(--cool); }
+        .letter-card.cool-card:hover { border-color: var(--cool); }
+        .letter-card.cool-card.active { border-color: var(--cool); }
+        .letter-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .letter-brief {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            margin-top: 0.1rem;
+        }
+        .letter-detail {
+            display: none;
+            padding: 1.25rem;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+        .letter-card.active .letter-detail { display: block; }
+        .letter-detail p { font-size: 0.9rem; color: var(--text-2); line-height: 1.75; }
+        .letter-detail p + p { margin-top: 0.75rem; }
+        .letter-detail .aside {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--text-3);
+            padding-left: 1rem;
+            border-left: 2px solid var(--border);
+        }
+
+        /* ---- Scenario cards (practice) ---- */
+        .scenario-stack { margin: 1.5rem 0; }
+        .scenario-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+        .scenario-body {
+            padding: 1.5rem 1.5rem 1.25rem;
+            background: var(--surface);
+        }
+        .scenario-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 0.75rem;
+        }
+        .scenario-tag.meaning { color: var(--accent); background: var(--accent-bg); }
+        .scenario-tag.freedom { color: #3A7A4A; background: #EDF5EF; }
+        .scenario-tag.isolation { color: var(--cool); background: var(--cool-bg); }
+        .scenario-tag.mortality { color: #8A6B20; background: #FBF5E4; }
+        .scenario-text {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+        .scenario-reveal {
+            display: none;
+            padding: 1.25rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg);
+        }
+        .scenario-reveal.show { display: block; }
+        .scenario-reveal p { font-size: 0.9rem; color: var(--text-2); line-height: 1.75; }
+        .scenario-reveal p + p { margin-top: 0.75rem; }
+        .reveal-btn-row {
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .reveal-btn {
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--surface);
+            color: var(--text-3);
+            transition: background 0.15s, color 0.15s;
+        }
+        .reveal-btn:hover { background: var(--bg); color: var(--text-2); }
+        .reveal-btn.revealed { color: var(--accent); background: var(--accent-bg); cursor: default; }
+
+        /* ---- Discussion ---- */
+        .questions { margin: 1.5rem 0; }
+        .question { padding: 1rem 0; border-bottom: 1px solid var(--border); }
+        .question:last-child { border-bottom: none; }
+        .question-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.3rem; }
+        .question-text { font-size: 0.95rem; font-weight: 500; color: var(--text); line-height: 1.7; }
+        .question-note { font-size: 0.82rem; font-style: italic; color: var(--text-3); margin-top: 0.3rem; }
+
+        /* ---- Check-in grid ---- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .option {
+            background: var(--surface);
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .option:hover { background: var(--bg); }
+        .option.selected { background: var(--accent-bg); }
+        .option-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+        .option-desc {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            line-height: 1.5;
+        }
+
+        /* ---- Page nav ---- */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .page-nav button {
+            background: none; border: none; font-family: inherit;
+            font-size: 0.9rem; font-weight: 500; color: var(--accent);
+            cursor: pointer; padding: 0.5rem 0; transition: opacity 0.15s;
+        }
+        .page-nav button:hover { opacity: 0.7; }
+        .page-nav .ghost { visibility: hidden; }
+
+        /* ---- Footer ---- */
+        .footer {
+            margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+            text-align: center; font-size: 0.8rem; color: var(--text-3); line-height: 1.8;
+        }
+        .footer strong { color: var(--text-2); font-weight: 600; }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 600px) {
+            .container { padding: 2rem 1.25rem 3rem; }
+            h1 { font-size: 1.8rem; }
+            .options-grid { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <div class="header-label">DBT Skills &mdash; Adult Group</div>
+        <h1>The Four Questions</h1>
+        <p class="subtitle">An approachable look at existential psychotherapy and what it means to build a life worth living</p>
+    </header>
+
+    <nav class="nav">
+        <button class="active" onclick="showPage(0, this)">Welcome</button>
+        <button onclick="showPage(1, this)">Four Concerns</button>
+        <button onclick="showPage(2, this)">Three Pathways</button>
+        <button onclick="showPage(3, this)">Practice</button>
+        <button onclick="showPage(4, this)">Discussion</button>
+        <button onclick="showPage(5, this)">Closing</button>
+    </nav>
+
+
+    <!-- ======================== WELCOME ======================== -->
+    <div class="page active">
+
+        <div class="section-label warm">Welcome</div>
+        <h2><span class="timing">8 to 10 min</span>About today</h2>
+        <p class="body-text">
+            In DBT, we talk about building a "life worth living." That phrase comes up often enough that it can start to sound like wallpaper. Today we're going to look at what's underneath it: the questions that every human being faces, whether they name them or not, and the particular way those questions press on people in recovery.
+        </p>
+        <p class="body-text">
+            Existential psychotherapy studies four concerns that sit at the bottom of most human anxiety: the fact that we die, that we are free to choose, that we are fundamentally alone in our experience, and that life does not come with a built-in instruction manual for meaning. None of this is abstract philosophy. These concerns show up every time you sit with your meal plan and wonder what the point is, every time you feel like nobody in your life truly understands what recovery costs you, every time the freedom to choose what to eat feels less like liberation and more like vertigo.
+        </p>
+        <p class="body-text">
+            Today is not about solving these questions. Nobody solves them. The work is learning to hold them without collapsing under their weight, and to build something real in the space they open up.
+        </p>
+
+        <div class="callout warm">
+            <div class="callout-label">Confidentiality</div>
+            <p>What's shared here stays here. Names, stories, details, all of it is protected. The only exception is safety.</p>
+        </div>
+
+        <div class="callout">
+            <p><strong>You can pass at any point.</strong> No explanation needed. If something doesn't fit right now, say "pass" and we move on.</p>
+        </div>
+
+        <div class="callout cool">
+            <div class="callout-label">Clinical note</div>
+            <p>This session explores existential themes including mortality and meaning. These are clinical concepts, not indicators of risk. If a participant's responses suggest active safety concerns, follow standard protocol. For the group, frame it early: thinking about mortality is different from wanting to die. The first is philosophy. The second is crisis. We are doing the first.</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-label">Check-in</div>
+        <h2><span class="timing">10 to 12 min</span>Bridge questions</h2>
+        <p class="body-text">Share your name, then take these one at a time.</p>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-q">Before the eating disorder, what gave your life meaning? What did you organize your days around?</div>
+                    <div class="step-hint">Not what you were good at. What mattered to you. A relationship, a place, a way of spending time.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-q">What, if anything, has replaced that in recovery? Or does the space feel mostly empty?</div>
+                    <div class="step-hint">Honesty here is more useful than optimism. If the space is empty, say so.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-q">If you could build any kind of life from here, without the disorder deciding for you, what is one thing that would be in it?</div>
+                    <div class="step-hint">Something concrete. A Tuesday evening activity, a type of work, a way of being with people.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-nav">
+            <button class="ghost">&#8592; Back</button>
+            <button onclick="showPage(1, navBtns[1])">Four Concerns &#8594;</button>
+        </div>
+    </div>
+
+
+    <!-- ======================== FOUR CONCERNS ======================== -->
+    <div class="page">
+
+        <div class="section-label warm">Yalom's ultimate concerns</div>
+        <h2><span class="timing">15 to 20 min</span>The questions underneath the questions</h2>
+        <p class="body-text">
+            Irvin Yalom, a psychiatrist who has spent sixty years studying what actually frightens people, identified four concerns that sit beneath most anxiety. They are not problems to solve. They are conditions of being alive. Everyone confronts them, whether consciously or not. What matters is how honestly you face them, because the ways people avoid these concerns tend to cause more suffering than the concerns themselves.
+        </p>
+        <p class="body-text">
+            For people in recovery, each of these concerns has a specific shape. Tap each one to see how it connects to your experience.
+        </p>
+
+        <div class="accordion">
+            <div class="acc-item open">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                    <div class="acc-title">Death: "This is temporary"</div>
+                    <div class="acc-icon">+</div>
+                </div>
+                <div class="acc-body">
+                    <p>The awareness that life ends. Not someday in the abstract, but your life, specifically, at a time you do not get to choose. Most people push this awareness to the edges of consciousness and live as though they have unlimited time. Then a diagnosis, a loss, or a quiet moment at 3am breaks through.</p>
+                    <p><strong>In recovery:</strong> Eating disorders have a complex relationship with mortality. Restriction can function as an unconscious attempt to control the body in the face of that uncontrollable fact. Starvation can feel like mastery over the biological, a refusal to be subject to the body's ordinary demands. And recovery, which requires surrendering that control, can expose the mortality anxiety the disorder was managing.</p>
+                    <p>The therapeutic move here is not to eliminate the awareness of death. It is to let it function as it's supposed to: as urgency. If this is temporary, then what you do with it matters. A life worth living requires the knowledge that it won't last.</p>
+                    <div class="aside">Think of your phone battery at 15%. You start making choices about what's worth opening. Mortality awareness does the same thing with your life. The constraint generates the clarity.</div>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                    <div class="acc-title">Freedom: "Nobody is coming to tell you what to do"</div>
+                    <div class="acc-icon">+</div>
+                </div>
+                <div class="acc-body">
+                    <p>The fact that you are responsible for your own life. There is no script, no predetermined path, and no authority who will eventually show up and tell you how to live. Most people experience this as either exhilarating or terrifying, depending on the day. Existential thinkers call the terrifying version "the dizziness of freedom."</p>
+                    <p><strong>In recovery:</strong> The eating disorder functioned as a GPS. It told you what to eat, what not to eat, when to exercise, how to feel about your body. Recovery removes the GPS and hands you a compass. A compass is better, but it requires you to choose direction, and choosing is frightening because it means the outcome is your responsibility.</p>
+                    <p>Every meal in recovery is a choice made without the disorder's instructions. Every time you follow your meal plan instead of the ED voice, you are exercising existential freedom. The discomfort you feel in that moment is not weakness. It is the actual weight of choosing your own life.</p>
+                    <div class="aside">The disorder made hundreds of decisions for you every day. Recovery asks you to make them yourself. That is not a side effect of recovery. That is recovery.</div>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                    <div class="acc-title">Isolation: "Nobody can fully know what this is like"</div>
+                    <div class="acc-icon">+</div>
+                </div>
+                <div class="acc-body">
+                    <p>Not loneliness, which can be solved by company. Existential isolation is the recognition that no matter how close you are to another person, there is a gap between your experience and theirs that cannot be fully bridged. You cannot climb inside someone else's consciousness, and they cannot climb inside yours. Even in the most intimate relationship, you are ultimately alone in your experience.</p>
+                    <p><strong>In recovery:</strong> People with eating disorders often feel this isolation acutely. The disorder creates a secret internal world that feels untranslatable. "Nobody understands what this is like" is one of the most common things said in treatment, and it is partly true. The gap is real. But the disorder widens it by providing a substitute for genuine connection. The rituals, the rules, the internal monologue about food and body: these become a kind of companion that, unlike real people, never disappoints and never leaves. Except that it is killing you.</p>
+                    <p>Recovery requires tolerating the gap between your experience and other people's, while choosing connection anyway. This group is an experiment in that.</p>
+                    <div class="aside">The irony: the eating disorder promises to solve isolation by becoming your constant companion, but it isolates you more than any other single factor in your life.</div>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                    <div class="acc-title">Meaninglessness: "What is the point?"</div>
+                    <div class="acc-icon">+</div>
+                </div>
+                <div class="acc-body">
+                    <p>Life does not come with a purpose printed on the box. Meaning is not discovered like a buried treasure. It is constructed, chosen, and maintained through action. This is the concern that tends to hit hardest in early recovery, because the eating disorder was, among other things, an answer to the meaning question. It gave you a project, a set of goals, a daily structure, an identity. Recovery takes all of that away and says: now build something real.</p>
+                    <p><strong>In recovery:</strong> The existential vacuum that shows up when the ED behaviors stop is not a sign that recovery is failing. It is a sign that you are encountering the question the disorder was answering for you. "Who am I without this?" is not a rhetorical question. It requires an actual answer, built over time, through choices that reflect what you value rather than what the disorder demands.</p>
+                    <p>This is where "life worth living" stops being a clinical phrase and becomes a real task. What are you building this life around? If the answer is not clear yet, that is fine. Constructing meaning is a process, not a revelation.</p>
+                    <div class="aside">A job title tells you what you do. It does not tell you why it matters. Meaning operates at the "why" level, and that level has to be authored by you.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout cool">
+            <div class="callout-label">Facilitator note</div>
+            <p>If the group goes quiet after these four concerns, hold the silence. Discomfort here is productive. The temptation is to rush toward reassurance. Resist it. The capacity to sit with a hard question without immediately resolving it is a skill that transfers directly to sitting with a meal, sitting with a craving, sitting with the absence of the disorder's voice.</p>
+        </div>
+
+        <div class="page-nav">
+            <button onclick="showPage(0, navBtns[0])">&#8592; Welcome</button>
+            <button onclick="showPage(2, navBtns[2])">Three Pathways &#8594;</button>
+        </div>
+    </div>
+
+
+    <!-- ======================== THREE PATHWAYS ======================== -->
+    <div class="page">
+
+        <div class="section-label cool">Frankl's meaning triangle</div>
+        <h2><span class="timing">10 to 15 min</span>Three ways to build meaning</h2>
+        <p class="body-text">
+            Viktor Frankl was a psychiatrist who survived the concentration camps and spent the rest of his life studying how people find meaning under conditions that should make meaning impossible. He identified three pathways, and they hold up across contexts, from the worst circumstances humans have endured to the ordinary challenge of building a life worth living in recovery.
+        </p>
+        <p class="body-text">
+            The critical point is that meaning is not a feeling. It is a byproduct of engagement. You do not find meaning and then start living. You start living and meaning accumulates.
+        </p>
+
+        <div class="accordion">
+            <div class="acc-item open">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                    <div class="acc-title">Creative values: meaning through what you give</div>
+                    <div class="acc-icon">+</div>
+                </div>
+                <div class="acc-body">
+                    <p>Making something that did not exist before you made it. This is not limited to art. Cooking a meal for someone is creative. Building a relationship is creative. Writing in a journal is creative. Doing work that serves a purpose you believe in is creative. The common thread is that you are putting something into the world rather than consuming or enduring it.</p>
+                    <p><strong>In recovery:</strong> The eating disorder is consumptive. It takes your time, your energy, your relationships, your capacity for pleasure. Creative values reverse the direction. They ask: what can you generate? Even in early recovery, when energy is low and motivation is inconsistent, small acts of creation matter. Sending a text to someone you care about. Preparing a snack with intention. Writing three sentences about how the day went. These are not trivial. They are deposits in a meaning account that the disorder has been draining.</p>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                    <div class="acc-title">Experiential values: meaning through what you receive</div>
+                    <div class="acc-icon">+</div>
+                </div>
+                <div class="acc-body">
+                    <p>Encountering something true, beautiful, or good and allowing yourself to be changed by it. A piece of music that rearranges something inside you. A conversation with someone who sees you clearly. A walk where you actually notice the temperature of the air on your skin. A meal you taste instead of endure.</p>
+                    <p><strong>In recovery:</strong> The eating disorder narrows experience to a single channel. Body size, caloric value, exercise output. Everything else gets filtered through that lens. Experiential values require widening the aperture. The DBT skill of participating, where you throw yourself fully into the present moment without self-consciousness, is exactly this pathway. The challenge for people in recovery is that presence requires vulnerability, and vulnerability was the thing the disorder existed to prevent.</p>
+                    <div class="aside">Frankl's point was not that suffering makes you deep. It was that even in suffering, the capacity to be moved by something real never fully disappears. The question is whether you leave the channel open.</div>
+                </div>
+            </div>
+
+            <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                    <div class="acc-title">Attitudinal values: meaning through how you face what you cannot change</div>
+                    <div class="acc-icon">+</div>
+                </div>
+                <div class="acc-body">
+                    <p>When you cannot change the situation, you can still choose how you stand in relation to it. This is the hardest pathway and the one Frankl considered the highest form of meaning. It does not mean pretending suffering is good. It means refusing to let suffering have the last word on who you are.</p>
+                    <p><strong>In recovery:</strong> There are parts of your history that cannot be undone. The years the disorder took. The relationships it damaged. The experiences you missed. Attitudinal values do not ask you to be grateful for those losses. They ask you to decide what you will do with the person you became because of them. The fact that you understand suffering from the inside gives you something: a capacity for empathy, a refusal to accept easy answers, a knowledge of what it costs to fight for your own life. That knowledge is not nothing. It is material you can build with.</p>
+                    <div class="aside">Radical acceptance in DBT and attitudinal values in Frankl point to the same territory: the moment you stop fighting what already happened and turn your energy toward what happens next.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout warm">
+            <div class="callout-label">Connection</div>
+            <p>Notice the convergence. Yalom names the anxiety. Frankl offers the response. DBT provides the skills. "Life worth living" is not wishful thinking. It is what happens when you face the four concerns honestly and then build meaning through creation, experience, and attitude.</p>
+        </div>
+
+        <div class="page-nav">
+            <button onclick="showPage(1, navBtns[1])">&#8592; Four Concerns</button>
+            <button onclick="showPage(3, navBtns[3])">Practice &#8594;</button>
+        </div>
+    </div>
+
+
+    <!-- ======================== PRACTICE ======================== -->
+    <div class="page">
+
+        <div class="section-label warm">Practice</div>
+        <h2><span class="timing">15 to 20 min</span>Existential dilemmas in recovery</h2>
+        <p class="body-text">
+            Each card describes a moment in recovery where an existential concern is pressing on the situation. Before you tap "Show reflection," sit with the dilemma. Notice what it brings up. Then compare your instinct with the reflection offered.
+        </p>
+
+        <div class="scenario-stack">
+
+            <div class="scenario-card">
+                <div class="scenario-body">
+                    <div class="scenario-tag meaning">Meaning</div>
+                    <p class="scenario-text">It's a Saturday. You have no plans. Before recovery, this day would have been structured entirely by exercise and food rules. Now the hours stretch out, formless. You notice the thought: "At least when I was sick, I knew what to do with a Saturday."</p>
+                </div>
+                <div class="scenario-reveal" id="s0">
+                    <p>The emptiness you're feeling is real, and it is not a sign that recovery is wrong. It is a sign that the disorder was answering the meaning question for you, and now you have to answer it yourself. The discomfort of a formless Saturday is the actual experience of existential freedom. The question is not "how do I fill this time" but "what do I want to build this time around?" Start small. One intentional act. Call someone, make something, go somewhere that has nothing to do with your body. The structure that replaces the disorder is the one you choose.</p>
+                </div>
+                <div class="reveal-btn-row">
+                    <button class="reveal-btn" onclick="revealScenario('s0', this)">Show reflection</button>
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-body">
+                    <div class="scenario-tag freedom">Freedom</div>
+                    <p class="scenario-text">Your dietitian tells you that you're doing well enough to start making some of your own food choices rather than following the meal plan to the letter. Instead of relief, you feel panic. The rules were hard, but at least they were clear.</p>
+                </div>
+                <div class="scenario-reveal" id="s1">
+                    <p>What you're feeling is the dizziness of freedom. The meal plan was a GPS. Now you're being handed a compass. A compass gives you direction without giving you every turn. The panic is not about food. It is about the weight of being the one who decides. Notice that the desire to go back to rigid rules and the desire to restrict come from the same place: a wish to have someone or something else make the choices so you don't have to bear the responsibility. Staying with the discomfort of choosing, meal by meal, is existential freedom in its most concrete form.</p>
+                </div>
+                <div class="reveal-btn-row">
+                    <button class="reveal-btn" onclick="revealScenario('s1', this)">Show reflection</button>
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-body">
+                    <div class="scenario-tag isolation">Isolation</div>
+                    <p class="scenario-text">You're at a dinner party with friends who have never struggled with food. Everyone is laughing and eating casually. You are performing ease while internally calculating, negotiating, managing. You think: "They have no idea what this costs me."</p>
+                </div>
+                <div class="scenario-reveal" id="s2">
+                    <p>They don't. And that gap is real. Existential isolation means that no one will ever fully inhabit your experience of sitting at that table. The question is what you do with the gap. The disorder's answer is to widen it: withdraw further, keep the secret, let the internal world become the only real world. The alternative is to accept the gap and connect anyway. You do not need to be fully understood to be genuinely known. Telling one person at that table something true about your experience does not close the gap completely, but it builds a bridge across it. Bridges are what we have.</p>
+                </div>
+                <div class="reveal-btn-row">
+                    <button class="reveal-btn" onclick="revealScenario('s2', this)">Show reflection</button>
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-body">
+                    <div class="scenario-tag mortality">Mortality</div>
+                    <p class="scenario-text">You learn that a former peer from treatment has died from complications of her eating disorder. You hadn't spoken in months. You feel a sharp, immediate awareness of how close you came to the same outcome, and also a strange guilt that you're here and she isn't.</p>
+                </div>
+                <div class="scenario-reveal" id="s3">
+                    <p>This is mortality salience at its most direct. The awareness is not something to manage or minimize. Sit with it. What it means is that recovery is not a lifestyle choice. It is a life-or-death decision you make every day, and the days you choose recovery, you are choosing to be alive in a way that many people never have to choose. The guilt is survivor's guilt, and it is common and valid. The question it asks is: given that you are here and she is not, what will you do with that? Not as a debt, but as a fact. You are alive. The urgency that produces is not pathological. It is appropriate.</p>
+                </div>
+                <div class="reveal-btn-row">
+                    <button class="reveal-btn" onclick="revealScenario('s3', this)">Show reflection</button>
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-body">
+                    <div class="scenario-tag meaning">Meaning</div>
+                    <p class="scenario-text">Someone asks you what you do, and for the first time in years the answer isn't built around your disorder. You have to decide what to say. You realize you don't have a clear answer. The disorder gave you an identity. Recovery hasn't given you a replacement yet.</p>
+                </div>
+                <div class="scenario-reveal" id="s4">
+                    <p>Identity is not something recovery gives you. It is something you build through repeated choices about what matters. The discomfort of not having a ready answer to "what do you do" is the actual experience of being in the construction phase. You are between identities, and that is structurally similar to being between jobs, between relationships, between countries: disorienting, necessary, and temporary. What you do while you don't know who you are yet is what determines who you become. Frankl's creative pathway applies here: start making things, start giving things, start doing things that reflect something you care about. Identity follows action. It does not precede it.</p>
+                </div>
+                <div class="reveal-btn-row">
+                    <button class="reveal-btn" onclick="revealScenario('s4', this)">Show reflection</button>
+                </div>
+            </div>
+
+            <div class="scenario-card">
+                <div class="scenario-body">
+                    <div class="scenario-tag isolation">Isolation</div>
+                    <p class="scenario-text">Your therapist is going on vacation for two weeks. You notice a disproportionate panic. It's not just that you'll miss the sessions. It's the realization that the person who understands you most is someone you pay, and the relationship has built-in limits.</p>
+                </div>
+                <div class="scenario-reveal" id="s5">
+                    <p>This moment contains an honest confrontation with existential isolation. The therapeutic relationship is real, but it is also bounded. It exists within a frame. The panic you feel is not about two weeks without therapy. It is about the recognition that even your closest relationships have limits, that no one person can be everything, and that the capacity to be alone with yourself is a skill you need rather than a failure to connect. The work here is to notice what the therapist's presence provides, whether that is validation, a sense of being known, or a structure for reflection, and to begin building those capacities in yourself and in relationships that are not professionally bounded. The goal of therapy is to make therapy unnecessary, which means building a world that holds you when the therapist is not there.</p>
+                </div>
+                <div class="reveal-btn-row">
+                    <button class="reveal-btn" onclick="revealScenario('s5', this)">Show reflection</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="page-nav">
+            <button onclick="showPage(2, navBtns[2])">&#8592; Three Pathways</button>
+            <button onclick="showPage(4, navBtns[4])">Discussion &#8594;</button>
+        </div>
+    </div>
+
+
+    <!-- ======================== DISCUSSION ======================== -->
+    <div class="page">
+
+        <div class="section-label warm">Discussion</div>
+        <h2><span class="timing">10 to 12 min</span>Going deeper</h2>
+        <p class="body-text">Open floor. Take any of these that resonate. You can respond to the prompt directly or build on what someone else says.</p>
+
+        <div class="questions">
+            <div class="question">
+                <div class="question-label">The void</div>
+                <div class="question-text">When the eating disorder behaviors stop, what fills the space? If the answer is "nothing yet," what does that emptiness feel like, and what do you do when you notice it?</div>
+                <div class="question-note">This surfaces the existential vacuum directly. Validate that the emptiness is a real experience, not a failure of recovery. The group itself is evidence that the space can hold something other than the disorder. Name that if it isn't said.</div>
+            </div>
+            <div class="question">
+                <div class="question-label">Choosing</div>
+                <div class="question-text">What is one choice you make every day in recovery that you used to let the eating disorder make for you? What does it feel like to make it yourself?</div>
+                <div class="question-note">Grounds the abstract concept of existential freedom in daily experience. Most answers will involve food, exercise, or body checking. Push for the feeling underneath the behavior: dread, vertigo, power, ambivalence. The feeling is the data.</div>
+            </div>
+            <div class="question">
+                <div class="question-label">Connection</div>
+                <div class="question-text">Is there someone in your life who comes close to understanding your experience? What does "close" mean to you, and what does the remaining gap feel like?</div>
+                <div class="question-note">This question rarely produces easy answers. The gap between "close" and "fully understood" is where existential isolation lives. If someone says the group is where they feel most understood, explore that: what does this space provide that other relationships don't?</div>
+            </div>
+            <div class="question">
+                <div class="question-label">Urgency</div>
+                <div class="question-text">If you knew, with certainty, that you had one healthy year, what would you stop putting off?</div>
+                <div class="question-note">This is a mortality-salience prompt. Screen for suicidality before using it. The answers tend to reveal what people already know they want but have been deferring because the disorder occupied the space where action would go. If someone says "eating without fear," hold that. It is an answer about meaning, not about food.</div>
+            </div>
+        </div>
+
+        <div class="page-nav">
+            <button onclick="showPage(3, navBtns[3])">&#8592; Practice</button>
+            <button onclick="showPage(5, navBtns[5])">Closing &#8594;</button>
+        </div>
+    </div>
+
+
+    <!-- ======================== CLOSING ======================== -->
+    <div class="page">
+
+        <div class="section-label">This week</div>
+        <h2><span class="timing">5 to 8 min</span>Pick one</h2>
+        <p class="body-text">Choose one practice that puts today's ideas into action. Not all four. One thing you will actually do.</p>
+
+        <div class="options-grid">
+            <div class="option" onclick="selectOption(this)">
+                <div class="option-label">Create something small</div>
+                <div class="option-desc">Frankl's creative pathway: cook, write, draw, send a message that matters</div>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <div class="option-label">Be present for one experience</div>
+                <div class="option-desc">Frankl's experiential pathway: eat one meal tasting every bite, or spend ten minutes outside without your phone</div>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <div class="option-label">Make one free choice</div>
+                <div class="option-desc">Choose something the disorder would normally decide for you, and sit with the weight of choosing it yourself</div>
+            </div>
+            <div class="option" onclick="selectOption(this)">
+                <div class="option-label">Bridge one gap</div>
+                <div class="option-desc">Tell one person something true about your experience that you normally keep private</div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="section-label">Checkout</div>
+        <h2>One sentence</h2>
+        <p class="body-text">
+            Name one thing from today that landed for you, and one concrete thing you're going to do differently this week. Not a goal. A plan. Who, what, when.
+        </p>
+
+        <div class="callout cool">
+            <div class="callout-label">Facilitator note</div>
+            <p>End facing forward. This session opens heavy territory, and closing needs to leave people with something built, not just something felt. Push for the concrete plan. "I'm going to think about meaning" does not count. "I'm going to call my sister on Wednesday and tell her I miss her" does. Specificity is the antidote to existential drift.</p>
+        </div>
+
+        <div class="footer">
+            <strong>Crisis resources</strong><br>
+            988 Suicide &amp; Crisis Lifeline: call or text <strong>988</strong><br>
+            Crisis Text Line: text <strong>HELLO</strong> to 741741
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const pages = document.querySelectorAll('.page');
+    const navBtns = document.querySelectorAll('.nav button');
+
+    function showPage(idx, btn) {
+        pages.forEach(p => p.classList.remove('active'));
+        navBtns.forEach(b => b.classList.remove('active'));
+        pages[idx].classList.add('active');
+        navBtns[idx].classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleAcc(header) {
+        header.parentElement.classList.toggle('open');
+    }
+
+    function revealScenario(id, btn) {
+        const panel = document.getElementById(id);
+        panel.classList.add('show');
+        btn.classList.add('revealed');
+        btn.textContent = 'Reflection shown';
+        btn.disabled = true;
+    }
+
+    function selectOption(el) {
+        el.classList.toggle('selected');
+    }
+</script>
+
+</body>
+</html>
